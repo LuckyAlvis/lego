@@ -10,7 +10,7 @@
         <relativePath>../lego-web-dependencies-management/lego-web-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>com.shenzhen.dai</groupId>
     <artifactId>lego-backend-admin</artifactId>
 
     <properties>

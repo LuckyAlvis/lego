@@ -2,6 +2,7 @@ package com.shenzhen.dai.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,12 @@ import java.util.Random;
 @RestController
 public class PingController {
 
+    @Value("${spring.application.name}")
+    private String applicationName;
+
+    @Value("${server.port}")
+    private String port;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -23,7 +30,7 @@ public class PingController {
 
     @GetMapping("/ping")
     public String ping() {
-        String result = "pong, this is finance server!";
+        String result = "pong, this is " + applicationName + " server! port: " + port;
         log.info(result);
         return result;
     }

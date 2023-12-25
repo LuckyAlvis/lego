@@ -43,14 +43,29 @@ public class PingController {
     /**
      * 启动多个实例，可以copy configuration 添加VM options -Dserver.port=808x
      *
-     * @return
+     * @return String
      */
     @GetMapping("/loadBalanceManually")
     public String loadBalanceManually() {
         List<ServiceInstance> instances = discoveryClient.getInstances("lego-learn-server");
-        Integer index = new Random().nextInt(instances.size());
+        int index = new Random().nextInt(instances.size());
         ServiceInstance serviceInstance = instances.get(index);
         String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/ping";
+        System.out.println("ping " + url);
+        return restTemplate.getForObject(url, String.class).toString();
+    }
+
+    /**
+     * RestTemplate增加@LoadBalanced注解
+     * 自动负载均衡，RestTemplate 会自动选择一个合适的服务实例
+     * 当前方法未成功，可能跟版本有关
+     *
+     * @return String
+     */
+    @Deprecated
+    @GetMapping("/loadBalanceAuto")
+    public String loadBalanceAuto() {
+        String url = "http://lego-learn-server/ping";
         System.out.println("ping " + url);
         return restTemplate.getForObject(url, String.class).toString();
     }

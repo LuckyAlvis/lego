@@ -33,6 +33,11 @@ public class PingController {
         return restTemplate.getForObject("http://localhost:8084/ping", String.class).toString();
     }
 
+    /**
+     * 启动多个实例，可以copy configuration 添加VM options -Dserver.port=908x
+     *
+     * @return
+     */
     @GetMapping("/loadBalanceManually")
     public String loadBalanceManually() {
         List<ServiceInstance> instances = discoveryClient.getInstances("lego-finance-server");

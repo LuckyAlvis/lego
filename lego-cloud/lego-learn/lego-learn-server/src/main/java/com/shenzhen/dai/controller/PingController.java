@@ -1,5 +1,7 @@
 package com.shenzhen.dai.controller;
 
+import com.shenzhen.dai.lego.finance.api.feign.IFinancePingRemoteService;
+import com.shenzhen.dai.lego.learn.api.feign.ILearnPingRemoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +16,7 @@ import java.util.Random;
 
 @Slf4j
 @RestController
-public class PingController {
+public class PingController implements ILearnPingRemoteService {
 
     @Value("${spring.application.name}")
     private String applicationName;
@@ -28,6 +30,9 @@ public class PingController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Autowired
+    private IFinancePingRemoteService financePingRemoteService;
+
     @GetMapping("/ping")
     public String ping() {
         String result = "pong, this is " + applicationName + " server! port: " + port;
@@ -37,7 +42,7 @@ public class PingController {
 
     @GetMapping("/pingFinance")
     public String pingFinance() {
-        return restTemplate.getForObject("http://localhost:8084/ping", String.class).toString();
+        return restTemplate.getForObject("http://localhost:8084/ping", String.class);
     }
 
     /**
@@ -53,5 +58,17 @@ public class PingController {
         String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/ping";
         System.out.println("ping " + url);
         return restTemplate.getForObject(url, String.class).toString();
+    }
+
+    @GetMapping("/financeRemotePing")
+    public String financePingRemoteService() {
+        return financePingRemoteService.pingRemote();
+    }
+
+    @Override
+    public String pingRemote() {
+        String result = "pong from remote, this is " + applicationName + " server! port: " + port;
+        log.info(result);
+        return result;
     }
 }

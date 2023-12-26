@@ -1,5 +1,6 @@
 package com.shenzhen.dai.controller;
 
+import com.shenzhen.dai.lego.finance.api.feign.IFinancePingRemoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +15,7 @@ import java.util.Random;
 
 @Slf4j
 @RestController
-public class PingController {
+public class PingController implements IFinancePingRemoteService {
 
     @Value("${spring.application.name}")
     private String applicationName;
@@ -31,6 +32,12 @@ public class PingController {
     @GetMapping("/ping")
     public String ping() {
         String result = "pong, this is " + applicationName + " server! port: " + port;
+        log.info(result);
+        return result;
+    }
+
+    public String pingRemote() {
+        String result = "pong from remote, this is " + applicationName + " server! port: " + port;
         log.info(result);
         return result;
     }
@@ -67,6 +74,6 @@ public class PingController {
     public String loadBalanceAuto() {
         String url = "http://lego-learn-server/ping";
         System.out.println("ping " + url);
-        return restTemplate.getForObject(url, String.class).toString();
+        return restTemplate.getForObject(url, String.class);
     }
 }

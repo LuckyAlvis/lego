@@ -36,9 +36,10 @@ public class PingController implements IFinancePingRemoteService {
         return result;
     }
 
-    public String pingRemote() {
+    public String pingRemote() throws InterruptedException {
         String result = "pong from remote, this is " + applicationName + " server! port: " + port;
         log.info(result);
+        Thread.sleep(2000);
         return result;
     }
 

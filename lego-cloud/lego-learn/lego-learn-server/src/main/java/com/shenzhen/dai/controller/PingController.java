@@ -61,7 +61,7 @@ public class PingController implements ILearnPingRemoteService {
     }
 
     @GetMapping("/financeRemotePing")
-    public String financePingRemoteService() {
+    public String financePingRemoteService() throws InterruptedException {
         return financePingRemoteService.pingRemote();
     }
 

@@ -12,5 +12,5 @@ public interface IFinancePingRemoteService {
      * @return  String
      */
     @GetMapping("/pingRemote")
-    String pingRemote();
+    String pingRemote() throws InterruptedException ;
 }

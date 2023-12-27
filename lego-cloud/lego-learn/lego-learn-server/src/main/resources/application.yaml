@@ -14,3 +14,9 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+#    openfeign:
+#      client:
+#        config:
+#          lego-finance-server:   # 可以配置default或者对单独服务生效
+#            connectTimeout: 500  # 连接超时时间
+#            readTimeout: 500     # 读取超时时间

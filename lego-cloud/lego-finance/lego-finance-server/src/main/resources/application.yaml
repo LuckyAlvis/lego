@@ -1,6 +1,8 @@
 server:
   port: 8081
-
+  tomcat:
+    threads:
+      max: 10 # 最大线程数
 spring:
   application:
     name: lego-finance-server
@@ -14,3 +16,7 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:7070
+        port: 8719

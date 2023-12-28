@@ -1,6 +1,8 @@
 server:
   port: 9081
-
+  tomcat:
+    threads:
+      max: 10 # 最大线程数
 spring:
   application:
     name: lego-learn-server
@@ -20,3 +22,7 @@ spring:
 #          lego-finance-server:   # 可以配置default或者对单独服务生效
 #            connectTimeout: 500  # 连接超时时间
 #            readTimeout: 500     # 读取超时时间
+    sentinel:
+      transport:
+        dashboard: localhost:7070
+        port: 8719

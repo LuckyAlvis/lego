@@ -39,5 +39,28 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+
+        <!-- sentinel官网https://sentinelguard.io/
+             下载源码https://gitee.com/mirrors/Sentinel?_from=gitee_search
+             本地安装mvn clean install -Dmaven.test.skip=true
+             启动脚本
+             java -Dserver.port=7070 \
+             -Dcsp.sentinel.dashboard.server=localhost:7070
+             -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
+             # java -Dserver.port=7070 \                          # 指定端口
+             # -Dcsp.sentinel.dashboard.server=localhost:7070 \   # 指定控制台地址
+             # -Dproject.name=sentinel-dashboard \                # 指定sentinel控制台程序显示名称
+             # -jar sentinel-dashboard.jar                        # 指定jar包
+             然后在代码中添加
+             cloud:
+                sentinel:
+                  transport:
+                    dashboard: localhost:7070   指定控制台服务
+                    port: 8719                  指定与控制台通信的端口
+            -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
     </dependencies>
 </project>

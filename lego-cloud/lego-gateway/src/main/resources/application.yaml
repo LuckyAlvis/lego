@@ -25,5 +25,12 @@ spring:
       #     - Path=/xxxx/** # 断言，路径相匹配的进行路由，匹配的路径，起到了伪装的作用
       #   filters:
       #     - StripPrefix=1 # 去掉前缀
+        - id: finance_route
+          uri: lb://lego-finance-server
+          predicates:
+            - Path=/finance/**
+          filters:
+            - StripPrefix=1
+            - Time
   main:
     web-application-type: reactive # 响应式编程

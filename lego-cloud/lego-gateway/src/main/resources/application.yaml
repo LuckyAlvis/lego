@@ -31,6 +31,6 @@ spring:
             - Path=/finance/**
           filters:
             - StripPrefix=1
-            - Time
+            - Time=111,222 # 增加了自定义参数
   main:
     web-application-type: reactive # 响应式编程

@@ -12,6 +12,16 @@ import reactor.core.publisher.Mono;
  * @author: ivan
  */
 public class TimeGatewayFilter implements GatewayFilter, Ordered {
+
+    private TimeGatewayFilterParam config;
+
+    public TimeGatewayFilter() {
+    }
+
+    public TimeGatewayFilter(TimeGatewayFilterParam config) {
+        this.config = config;
+    }
+
     /**
      * 编写过滤器的业务逻辑
      *
@@ -21,6 +31,7 @@ public class TimeGatewayFilter implements GatewayFilter, Ordered {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) { //这个括号到return之间的代码前置过滤器的核心逻辑
+        System.out.println("自定义参数：config = " + config.toString());
         // 记录请求进入时间
         Long begin = System.currentTimeMillis();
         System.out.println("请求进入时间：" + begin);

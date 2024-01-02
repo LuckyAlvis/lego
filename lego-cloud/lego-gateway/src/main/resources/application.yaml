@@ -8,5 +8,22 @@ spring:
       discovery:
         locator:
           enabled: true # 让Gateway可以发现nacos上的服务
+      routes:
+        - id: learn_route # 路由的id，没有固定规则但要求唯一，建议配合服务名
+          uri: http://localhost:9081 # lb://lego-learn-server 代表从注册中心获取服务，其中lego-learn-server就是nacos注册上去的服务名称
+          predicates:
+            - Path=/learning/** # 断言，配置当前路由拦截的请求路径规则，当前配置拦截规则，以/learning开头的请求地址都会被拦截
+          filters:
+            - StripPrefix=1 # 去掉前缀 网关局部过滤器，对通过网关的请求进行拦截与加工（不同过滤器有不同的作用），StripPrefix=1表示去掉请求地址的第一层路径 /learning/xxx -> /xxx
+            # 1. 请求进入网关，判断url符合哪个路由设置的predicates规则，
+            #    当前请求http://localhost:9999/learning/ping符合：learn_route设置的predicates规则Path=/learning/**，所以会被拦截
+            # 2. 执行路由的filter逻辑进行url改造：当前路由过滤是截取第一节路径，所以会将/learning/ping改造成/ping
+            # 3. 将处理完成后的url地址，拼接到uri上面，得到完整的微服务访问地址：http://localhost:9081/ping
+      # - id: learn_route_9081 # 路由的id，没有固定规则但要求唯一，建议配合服务名
+      #   uri: http://localhost:9081 # 没有配置lb，直接写服务地址，不走注册中心
+      #   predicates:
+      #     - Path=/xxxx/** # 断言，路径相匹配的进行路由，匹配的路径，起到了伪装的作用
+      #   filters:
+      #     - StripPrefix=1 # 去掉前缀
   main:
     web-application-type: reactive # 响应式编程

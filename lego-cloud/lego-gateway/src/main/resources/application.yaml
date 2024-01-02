@@ -1,0 +1,12 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: lego-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 让Gateway可以发现nacos上的服务
+  main:
+    web-application-type: reactive # 响应式编程

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: lego-finance-server
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+  profiles:
+    active: dev

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: lego-learn-server
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+  profiles:
+    active: dev

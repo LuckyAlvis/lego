@@ -16,7 +16,7 @@
 说完核心概念，再看下核心工作流程，下图是rocketMq主要组件的工作原理图
 
 ![img](https://pic2.zhimg.com/80/v2-0eff9c0d5eca44753ae6f2f676a24a75_1440w.jpg)
-
+![img.png](img.png)
 通过这张图可以清楚知道，大致工作原理：
 
 - Broker启动的时候，会往每台NameServer（因为NameServer之间不通信，所以每台都得注册）注册自己的信息，这些信息包括自己的ip和端口号，自己这台Broker有哪些topic等信息。
@@ -24,6 +24,38 @@
 - Broker在接收到Producer的消息之后，会将消息存起来，持久化，如果有从节点的话，也会主动同步给从节点，实现数据的备份
 - Consumer启动之后也会跟NameServer建立联系，定期从NameServer中获取Broker和对应topic的消息，然后根据自己需要订阅的topic信息找到对应的Broker的地址，然后跟Broker建立连接，获取消息，进行消费
 
+## 总体来讲：
+
+**NameServer的职责：管理Broker，举例：各个邮局的管理机构**
+**Broker的职责：接收消息，存储消息，举例：邮局**
+**Producer的职责：向Broker发送消息，首先要询问NameServer，要一个Broker地址，举例：发信者**
+**Consumer的职责：消费Broker的消息，首先要询问NameServer，要一个Broker地址，举例：收信者**
+**Topic：区分消息的种类；一个发送者可以发送消息给一个或者多个Topic；一个消息的接收者可以订阅一个或者多个Topic消息**
+**Message Queue：相当于是Topic的分区；用于并行发送和接收消息**
+
+# 集群搭建方式
+
+## NameServer集群
+
+集群中的各个NameServer节点是无状态的，每一个节点的信息都是一样的，节点之间是不通信的，主要就是管理着Broker的信息。
+Broker启动的时候，会给每一个NameServer节点上报自己的信息，这样每一个NameServer节点都会有一份Broker的信息，这样就可以实现负载均衡。
+节点之间的数据是没有差异的，所以可以随意的增加或者减少节点。
+
+## Broker集群
+
+分为Master和Slave，Master是主节点，Slave是从节点，主节点负责消息的写操作，从节点负责消息的读操作。
+同一组的Master和Slave是一对多的关系，一个slave只能对应一个master，一个master可以对应多个slave。
+Master与Slave的对应关系通过指定相同的BrokerName和不同的BrokerId来实现的，BrokerName是Broker的名字，
+BrokerId是Broker的唯一标识，BrokerName和BrokerId是可以在启动Broker的时候通过配置文件来配置的。
+是通过BrokerId来区分的，BrokerId为0的是Master，其它的是Slave，比如BrokerName为broker-a，那么broker-a-0就是Master，broker-a-1就是Slave。
+每个Broker与NameServer建立长连接，定时注册Topic信息到所有NameServer，定时发送心跳包到所有NameServer，以及定时从所有NameServer拉取Topic信息。
+
+## Producer和Consumer集群
+
+节点之间是可以通信的，所以Producer和Consumer也是可以集群的，Producer和Consumer集群的目的是为了提高系统的吞吐量，降低延迟，提高可用性。
+Producer与NameServer集群中的其中一个节点（随机选择）建立长连接，定时从NameServer获取Topic路由信息，并向提供Topic服务的Master、Slave建立长连接，且定时向Broker发送心跳包，Producer完全无状态，可集群部署。
+Consumer与NameServer集群中的其中一个节点（随机选择）建立长连接，定期从NameServer取Topic路由信息，并向提供Topic服务的Master、Slave节点建立长连接，且定时向Master、Slave发送心跳。
+Consumer既可以从Master订阅消息，也可以从Slave订阅消息，订阅规则由Broker配置决定，Consumer也是无状态，可集群部署。
 # Docker方式启动命令
 
 ps: Apple Silicon M1版本的芯片，docker方式启动会有问题，建议用常规压缩包方式安装启动。

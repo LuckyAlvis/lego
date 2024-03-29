@@ -12,6 +12,7 @@
         <module>lego-knowledge-thread</module>
         <module>lego-knowledge-design-pattern</module>
         <module>lego-knowledge-message-queue</module>
+        <module>lego-knowledge-message-queue/lego-knowledge-message-queue-rocketmq</module>
     </modules>
 
     <properties>

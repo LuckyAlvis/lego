@@ -5,17 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.shenzhen.dai</groupId>
-        <artifactId>lego-knowledge</artifactId>
+        <artifactId>lego-knowledge-message-queue</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <modules>
-        <module>lego-knowledge-message-queue-rocketmq</module>
-    </modules>
-
-    <packaging>pom</packaging>
-
-    <artifactId>lego-knowledge-message-queue</artifactId>
+    <artifactId>lego-knowledge-message-queue-rocketmq</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -23,4 +18,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+    </dependencies>
 </project>

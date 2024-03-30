@@ -11,6 +11,10 @@
     </parent>
 
     <artifactId>lego-knowledge-message-queue-rocketmq</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>rocketmq-dashboard</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

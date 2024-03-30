@@ -54,7 +54,7 @@ public class PingController implements IFinancePingRemoteService {
 
     @GetMapping("/pingLearn")
     public String pingLearn() {
-        return restTemplate.getForObject("http://localhost:8082/ping", String.class).toString();
+        return restTemplate.getForObject("http://192.168.31.68:8082/ping", String.class).toString();
     }
 
     /**

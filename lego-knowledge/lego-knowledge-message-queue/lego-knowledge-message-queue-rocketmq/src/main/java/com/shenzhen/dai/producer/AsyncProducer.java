@@ -16,7 +16,7 @@ import java.util.concurrent.CountDownLatch;
 public class AsyncProducer {
     public static void main(String[] args) throws MQClientException, RemotingException, InterruptedException {
         DefaultMQProducer producer = new DefaultMQProducer("AsyncProducer");
-        producer.setNamesrvAddr("192.168.31.68:9876");
+        producer.setNamesrvAddr("localhost:9876");
         producer.start();
         Message message = new Message();
         message.setTopic("TopicTestAAA");

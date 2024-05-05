@@ -15,7 +15,7 @@ public class PullConsumer {
         // 初始化一个DefaultMQPullConsumer
         DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("PullConsumer");
         // 设置NameServer地址
-        consumer.setNamesrvAddr("192.168.31.68:9876");
+        consumer.setNamesrvAddr("localhost:9876");
         Set<String> topics = new HashSet<>();
         topics.add("TopicTestAAA");
         consumer.setRegisterTopics(topics);

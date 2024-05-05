@@ -13,7 +13,7 @@ public class PushConsumer {
         // 初始化一个DefaultMQPushConsumer
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("SyncProducer");
         // 设置NameServer地址
-        consumer.setNamesrvAddr("192.168.31.68:9876");
+        consumer.setNamesrvAddr("localhost:9876");
         // 订阅一个Topic，可以使用Tag来过滤需要消费的消息，这里暂时不做过滤
         consumer.subscribe("TopicTestAAA", "*");
         // 注册回调实现类来处理从broker拉取回来的消息

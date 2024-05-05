@@ -9,7 +9,7 @@ import org.apache.rocketmq.client.exception.MQClientException;
 public class LitePullConsumer {
     public static void main(String[] args) throws MQClientException {
         DefaultLitePullConsumer consumer = new DefaultLitePullConsumer("LitePullConsumer");
-        consumer.setNamesrvAddr("192.168.31.68:9876");
+        consumer.setNamesrvAddr("localhost:9876");
         consumer.subscribe("TopicTestAAA", "*");
         consumer.start();
         while (true) {

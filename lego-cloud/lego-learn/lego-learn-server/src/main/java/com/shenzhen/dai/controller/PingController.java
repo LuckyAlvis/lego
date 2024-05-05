@@ -42,7 +42,7 @@ public class PingController implements ILearnPingRemoteService {
 
     @GetMapping("/pingFinance")
     public String pingFinance() {
-        return restTemplate.getForObject("http://192.168.31.68:8084/ping", String.class);
+        return restTemplate.getForObject("http://localhost:8084/ping", String.class);
     }
 
     /**

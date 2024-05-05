@@ -20,7 +20,7 @@ public class AuthGlobalFilter implements GlobalFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
-        // 请求http://192.168.31.68:9999/finance/ping?token=ss
+        // 请求http://localhost:9999/finance/ping?token=ss
         String token = request.getQueryParams().getFirst("token");
         if (StringUtils.isBlank(token)) {
             // 没有token直接返回401

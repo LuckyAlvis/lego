@@ -17,7 +17,7 @@ public class SyncProducer {
         // 初始化一个DefaultMQProducer
         DefaultMQProducer producer = new DefaultMQProducer("SyncProducer");
         // 设置NameServer地址
-        producer.setNamesrvAddr("192.168.31.68:9876");
+        producer.setNamesrvAddr("localhost:9876");
         // 启动producer
         producer.start();
         // 创建消息对象，指定Topic、Tag和消息体

@@ -22,6 +22,7 @@ public class AsyncProducer {
         message.setTopic("TopicTestAAA");
         message.setBody("Hello RocketMQ, This is a async message.".getBytes(StandardCharsets.UTF_8));
         CountDownLatch countDownLatch = new CountDownLatch(1);
+        // 异步发送，结果从回调函数SendCallback中获得
         producer.send(message, new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {

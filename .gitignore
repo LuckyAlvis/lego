@@ -3,7 +3,7 @@ out/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-nohup.out
+**/nohup.out
 
 ### IntelliJ IDEA ###
 .idea

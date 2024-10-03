@@ -3,7 +3,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @description:
+ * @description: LeetCode01 两数之和
+ * @link <a href="https://leetcode.cn/problems/two-sum/submissions/569778407/">两数之和</a>
  * @author: daiyifan
  * @create: 2024-10-03 14:33
  */

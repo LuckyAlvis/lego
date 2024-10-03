@@ -271,7 +271,7 @@ pangliang/rocketmq-console-ng
 # 如果像我一样是Apple Silicon M1，或者docker启动报错platform不匹配，可以尝试如下方式：
 https://github.com/apache/rocketmq-dashboard/releases/tag/rocketmq-dashboard-1.0.0
 mvn clean package -Dmaven.test.skip=true
-nohup java -jar -Drocketmq.namesrv.addr=127.0.0.1:9876 rocketmq-dashboard-1.0.0.jar &
+nohup java -jar -DServer.port=9970 -Drocketmq.namesrv.addr=127.0.0.1:9876 rocketmq-dashboard-1.0.0.jar &
 来这里下载源码，然后maven编译打包，启动jar包，即可访问
 ```
 
